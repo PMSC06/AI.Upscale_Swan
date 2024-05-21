@@ -1,10 +1,8 @@
-from flask import Flask, request, send_file, render_template, abort
+from flask import Flask, request, send_file, render_template
 import subprocess
 import os
 
 app = Flask(__name__)
-UPLOAD_FOLDER = 'static/'
-OUTPUT_FILE = 'static/output.png'
 
 @app.route('/')
 def index():
@@ -16,18 +14,18 @@ def upscale():
         return 'No image uploaded', 400
 
     image_file = request.files['image']
-    image_path = os.path.join(UPLOAD_FOLDER, 'uploaded_image.png')
+    upload_folder = os.path.join(app.root_path, 'static')
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
+    
+    image_path = os.path.join(upload_folder, 'uploaded_image.png')
     image_file.save(image_path)
 
-    upscale_command = ['realesrgan-ncnn-vulkan.exe', '-i', image_path, '-o', OUTPUT_FILE]
+    output_image_path = os.path.join(upload_folder, 'output.png')
+    upscale_command = ['realesrgan-ncnn-vulkan.exe', '-i', image_path, '-o', output_image_path]
+    subprocess.run(upscale_command, check=True)
 
-    try:
-        subprocess.run(upscale_command, check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error during the upscale process: {e}")
-        return 'Error during the upscale process', 500
-
-    return send_file(OUTPUT_FILE, mimetype='image/png')
+    return send_file(output_image_path, mimetype='image/png')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=False, host='0.0.0.0', port=80)
