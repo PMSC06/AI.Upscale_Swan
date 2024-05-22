@@ -1,9 +1,9 @@
 FROM python:3
-WORKDIR /AI.UpscaleSwan
-COPY . /AI.UpscaleSwan
-RUN pip install -r AI.UpscaleSwan/requirements.txt
-CMD python ./AI.UpscaleSwan/app.py
+WORKDIR /AIUpscaleSwan
+COPY . /AIUpscaleSwan
+RUN pip install -r AIUpscaleSwan/requirements.txt
+CMD python ./AIUpscaleSwan/app.py
 COPY . .
 
 ENTRYPOINT ["py"]
-CMD ["AI.UpscaleSwna/app.py"]
+CMD ["AIUpscaleSwna/app.py"]
