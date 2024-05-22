@@ -6,4 +6,4 @@ CMD python ./AIUpscaleSwan/app.py
 COPY . .
 
 ENTRYPOINT ["gunicorn"]
-CMD ["app:app"]
+CMD ["AIUpscaleSwan/app:app"]
