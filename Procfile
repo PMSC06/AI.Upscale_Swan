@@ -1,1 +1,1 @@
-web: gunicorn AI.UpscaleSwan/app:app
+web: gunicorn AIUpscaleSwan/app:app
