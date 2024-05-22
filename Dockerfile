@@ -5,5 +5,5 @@ RUN pip install -r AIUpscaleSwan/requirements.txt
 CMD python ./AIUpscaleSwan/app.py
 COPY . .
 
-ENTRYPOINT ["py"]
-CMD ["AIUpscaleSwna/app.py"]
+ENTRYPOINT ["gunicorn"]
+CMD ["app:app"]
