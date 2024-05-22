@@ -32,8 +32,12 @@ def upscale():
         return 'Failed to save image', 500
 
     output_image_path = os.path.join(upload_folder, 'output.png')
-    upscale_command = ['realesrgan-ncnn-vulkan.exe', '-i', image_path, '-o', output_image_path]
-
+    try:
+        upscale_command = ['realesrgan-ncnn-vulkan.exe', '-i', image_path, '-o', output_image_path]
+        app.logger.info(f'ficheiro encontrado')
+    except Exception:
+        app.logger.error(f'Erro no processo')
+        return 'ficheiro nao encontrado', 500
     try:
         subprocess.run(upscale_command, check=True)
         app.logger.info(f'Imagem upscaling salva em {output_image_path}')
