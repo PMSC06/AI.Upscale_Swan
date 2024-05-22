@@ -5,5 +5,5 @@ RUN pip install -r AI.UpscaleSwan/requirements.txt
 CMD python ./AI.UpscaleSwan/app.py
 COPY . .
 
-ENTRYPOINT ["python"]
-CMD ["flask_app.py"]
+ENTRYPOINT ["py"]
+CMD ["AI.UpscaleSwna/app.py"]
