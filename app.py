@@ -35,7 +35,7 @@ def upscale():
     try:
         upscale_command = ['realesrgan-ncnn-vulkan.exe', '-i', image_path, '-o', output_image_path]
         app.logger.info(f'ficheiro encontrado')
-    except Exception:
+    except Exception as e:
         app.logger.error(f'Erro no processo')
         return 'ficheiro nao encontrado', 500
     try:
